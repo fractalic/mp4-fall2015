@@ -9,7 +9,7 @@ Your goals for this machine problem are to:
 + Program against existing interfaces;
 + Think about code from a design point of view.
 
-### Overview
+## Overview
 
 We have developed a virtual-world environment that can simulate the interaction of many items and actors. This world is flat and consists of many fields that can each have one `Item`. In the beginning the world will contain `Grass`, `Rabbit`s, and `Fox`es, and you will add additional `Item`s as part of this machine problem.
 
@@ -20,7 +20,7 @@ This machine problem has two parts:
 + filling the world with additional items, 
 + and creating intelligent AIs for `Rabbit`s and `Fox`es.
 
-### Part 1: Fill the virtual world with life
+## Part 1: Fill the virtual world with life
 
 Add at least 9 new classes to the virtual world|three Item classes for each of the three different categories listed below:
 + `Animal`s: In the animals package create three additional classes for animals, such as lions, flies, and elephants.
@@ -31,14 +31,14 @@ You have considerable freedom in this machine problem for which items you add an
 
 When designing your items think about subtyping and interfaces. You may want to introduce additional interfaces or abstract classes where suitable.
 
-### Part 2: Create intelligent AIs for Rabbits and Foxes
+## Part 2: Create intelligent AIs for Rabbits and Foxes
 
 Provide a more intelligent behavior for Rabbits and Foxes by providing an implementation of their AI classes. The best AIs are those that generate the largest average animal population over the entire time, measured separately for rabbits and foxes.
 
-### The virtual world
+## The virtual world
 This section describes the design of the virtual world and its rules.
 
-#### Objects in the world
+### Objects in the world
 
 The world contains the following object types, with each type having different properties and specifications described here.
 
