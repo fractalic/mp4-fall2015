@@ -19,7 +19,7 @@ This machine problem has two parts:
 + filling the world with additional items, 
 + and creating intelligent AIs for `Rabbit`s and `Fox`es.
 
-## Part 1: Fill the virtual world with life
+## Part 1: Give life to the virtual world
 
 Add at least 9 new classes to the virtual world|three Item classes for each of the three different categories listed below:
 + `Animal`s: In the animals package create three additional classes for animals, such as lions, flies, and elephants.
@@ -59,7 +59,7 @@ All actors are periodically asked for their next action, which they provide by r
 The following are the predefined rules for breeding, eating, and moving that apply to rabbits and foxes:
 + `BreedCommand`: When an `ArenaAnimal` breeds, it makes a copy of itself on an adjacent tile (one of the 8 tiles around it). The `LivingItem` can only breed when it has enough energy (`getBreedLimit` returns the minimum required energy to breed) and has a valid empty adjacent location. Breeding occurs alone; there is no mating between rabbits or between foxes. When an `ArenaAnimal` breeds, its energy is reduced to 50 percent of its former energy (rounded down), and the newly-bred animal also starts at 50 percent of its parent's energy. Finally, a newly bred `ArenaAnimal` must be placed in an empty location that is adjacent to the parent.
 + `EatCommand`: An `ArenaAnimal` is only able to eat something that is adjacent to it. By eating a `Food`, the `ArenaAnimal` increases its energy by the food's calories (plant calories for rabbits and meat for foxes) up to its maximum energy level. The food (vegetable/non-vegetable) must be edible by the eater (herbivorous/carnivorous) and the eater must possess greater strength than the food, i.e., foxes should not attempt to eat grass or other foxes.
-+ `MoveCommand`: An `ArenaAnimal` can only move once at a time, and moving distance is restricted by its moving range. Also, it must move only to valid, empty locations.
++ `MoveCommand`: An `ArenaAnimal` can only move once at a time, and moving distance is restricted by its moving range. Also, it must move only to valid, empty locations.
 + `WaitCommand`: Simply doing nothing is the  final option. Note that all living items lose energy each time `getNextAction` is called, even if they choose to do nothing, so they may eventually die of hunger.
 
 The above rules needed to be obeyed strictly by the AI for rabbits and foxes competing in the arena. Your own items may handle them more flexibly (e.g., they may jump around further on the world) and may add additional `Command`s.
