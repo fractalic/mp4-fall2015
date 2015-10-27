@@ -50,8 +50,7 @@ Additionally, you will find interfaces representing `MoveableItem`s (that can be
 
 There are also implementations of `Grass`, `Gardener`s, `Rabbit`s (eating Grass), `Fox`es (eating `Rabbit`s), and `Gnat`s (generally behaving just stupidly) provided in the world already. You may change these implementations to foster reuse, but the behavior of these existing items should not be changed. 
 
-For rabbits and foxes you should provide corresponding AIs that
-survive the best in the arena by implementing the AI interfaces.
+For rabbits and foxes you should provide corresponding AIs that survive the best in the arena by implementing the AI interfaces.
 
 ### Commands and behaviors
 All actors are periodically asked for their next action, which they provide by returning a `Command`. How often they are asked depends on their speed; `getCoolDownPeriod` returns the number of steps to be skipped before the next action. AIs of rabbits and foxes may only return instances of the predefined commands `BreedCommand`, `EatCommand`, `MoveCommand`, and `WaitCommand`. 
@@ -88,7 +87,7 @@ We provide a GUI to visualize the world with its items. The GUI has a simple int
 To earn full credit you must do the following:
 
 + Design all items to reuse as much code as possible. Avoid copying-and-pasting code; instead, design your code with useful abstractions, class hierarchies, and/or delegation.
-+ You must name your Fox AI class `FoxAI` and your Rabbit AI class `RabbitAI`, including the exact capitalization here. Place both classes in the `ca.ubc.ece.cpen221.mp4.ai` package. Both classes must implement the provided AI interface and have a constructor that requires no parameters. Your AIs may rely on the `ArenaAnimal` interfaces we provide with the assignment, but they should not depend on specic implementations of these interfaces. For the arena-style tournament, your `RabbitAI` will be used to control some provided rabbit implementation and your `FoxAI` will control some provided fox implementation. If you are unsure whether your implementation will work in our arena, please ask the course staff using a private question on Piazza.
++ You must name your `Fox` AI class `FoxAI` and your `Rabbit` AI class `RabbitAI`, including the exact capitalization here. Place both classes in the `ca.ubc.ece.cpen221.mp4.ai` package. Both classes must implement the provided AI interface and have a constructor that requires no parameters. Your AIs may rely on the `ArenaAnimal` interfaces we provide with the assignment, but they should not depend on specic implementations of these interfaces. For the arena-style tournament, your `RabbitAI` will be used to control some provided rabbit implementation and your `FoxAI` will control some provided fox implementation. If you are unsure whether your implementation will work in our arena, please ask the course staff using a private question on Piazza.
 + In general, adhere to the code organization. You may add classes, abstract classes, and interfaces that you desire to the code base. Place any new files in the appropriate package. For example, a `Snake` would go in the `animals` package.
 + You may not delete or modify any existing interfaces.
 + As usual, make sure your code is readable. Use proper indentation and whitespace, abide by standard Java naming conventions, and add additional comments as necessary to document your code. Hint: use <kbd>Ctrl + Shift + F</kbd> to auto-format your code!
