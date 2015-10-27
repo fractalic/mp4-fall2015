@@ -96,7 +96,7 @@ To earn full credit you must do the following:
 + The tasks may be underspecified. In case of doubt use your judgment. If you want to communicate your assumptions, use comments in the source code or suitable specifications/Javadoc statements.
 + Avoid using `instanceof` and downcasts. Avoid casting an interface to a specific implementation. 
 + Do not use the `java.lang.Class` class or the `java.lang.reflect` package. You do not need -- and should not use -- those techniques for this machine problem.
-+ For this machine problem, we understand that testing code in this virtual environment is very difficult, and we rather you devote your time to practice code reuse. You should try to run your implementations in the GUI and experiment with different behaviors.
++ For this machine problem, we understand that testing code in this virtual environment is very difficult, and we rather you devote your time to practice code reuse. You should try to run your implementations in the GUI and experiment with different behaviors.
 + You may write test code, but we do not have any testing-related requirements.
 
 ### Grading Rubric
