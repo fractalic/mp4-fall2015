@@ -116,4 +116,5 @@ We will use the following approximate rubric to grade your work:
 After the machine problem deadline, we will run all students' `Rabbit` and `Fox` AIs in our own virtual arena with our own Fox and Rabbit implementations and award bonus points to the best competitors. Our animal implementations may use different values for the cool-down periods, the breed limit and similar values. Our `World` implementation will strictly enforce the `World` rules such as the `ArenaAnimal` view limits. Your solution will be disqualified from the tournament if your implementations do not respect the rules (such as the view limit) of our world.
 
 ---
+
 > **Have fun!**
