@@ -71,6 +71,8 @@ When implementing your own items you should maximize code reuse. You may modify 
 
 ### Implementing the AI for the arena
 
+> This is where you can get creative. You only need to develop a process for deciding on the actions for the creatures in the virtual world. Don't get overwhelmed by the use of the term AI: you are simply developing some rules for decision making.
+
 You must implement the AI for rabbits and foxes by implementing the AI interface. For technical reasons, your AI classes must have a zero-argument constructor (you cannot participate in our virtual world tournament if your AIs require constructor arguments).
 
 The AI for rabbits and foxes is restricted in flexibility compared what other actors can do. They can only see nearby parts of the world through the `ArenaWorld` interface and may only return the predefined commands obeying the rules above.
