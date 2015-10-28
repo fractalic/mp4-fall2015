@@ -26,7 +26,7 @@ This machine problem has two parts:
 Add at least 9 new classes to the virtual world|three Item classes for each of the three different categories listed below:
 + `Animal`s: In the animals package create three additional classes for animals, such as lions, flies, and elephants.
 + `Vehicle`s: In the vehicles package create three classes for vehicles, which can run over (destroy) everything with a lower strength but will crash (be destroyed) when running into something with a greater strength. Like real vehicles, your vehicles should build momentum when moving, so it takes time for them to accelerate or brake or turn; they can change directions only at low speed. Note that the speed of a `Vehicle` is controlled by the cool-down period.
-+ Your own category: In a separate package implement three classes of `Item`s that share some similarity. Examples might include tornadoes and earthquake, mountains and cliffs, even Master Yoda or Voldemort. _Use your imagination!_
++ Your own category: In a separate package implement three classes of `Item`s that share some similarity. Examples might include tornadoes and earthquake, mountains and cliffs, even [Scarlet Witch](https://en.wikipedia.org/wiki/Scarlet_Witch), [Master Yoda](https://en.wikipedia.org/wiki/Yoda) or [Voldemort](https://en.wikipedia.org/wiki/Lord_Voldemort). _Use your imagination!_
 
 You have considerable freedom in this machine problem for which items you add and how your items behave. Your items might range from a simple stone to sophisticated characters and weapon systems, from real-world animals to science fiction creatures, or include technical objects.
 
