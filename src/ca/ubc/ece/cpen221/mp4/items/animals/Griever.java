@@ -23,7 +23,26 @@ public class Griever implements ArenaAnimal {
     private final AI ai;
 
     private Location location;
-    private int energy = INITIAL_ENERGY;
+    private int energy;
+    
+    private static final int MOVING_RANGE = 2;
+    private static final int ENERGY_LOSS_RATE = 10;
+    
+    /**
+     * Create a new {@link Griever} with an {@link AI} at
+     * initialLocation. The initialLocation must be valid
+     * and empty.
+     * 
+     * @param grieverAI
+     *           : The AI designed for grievers.
+     * @param initialLocation
+     *           : The location where this griever will be created.
+     */
+    public Griever(AI grieverAI, Location initialLocation) {
+        ai = grieverAI;
+        location = initialLocation;
+        energy = INITIAL_ENERGY;
+    }
     
     @Override
     public int getEnergy() {
@@ -33,104 +52,92 @@ public class Griever implements ArenaAnimal {
 
     @Override
     public LivingItem breed() {
-        
-        return null;
+        Griever child = new Griever(ai, location);
+        child.energy = energy / 2;
+        this.energy = energy / 2;
+        return child;
     }
 
     @Override
     public void eat(Food food) {
-        // TODO Auto-generated method stub
-
+        energy = Math.min(MAX_ENERGY, energy + food.getMeatCalories());
     }
 
     @Override
     public void moveTo(Location targetLocation) {
-        // TODO Auto-generated method stub
-
+        location = targetLocation;
     }
 
     @Override
     public int getMovingRange() {
-        // TODO Auto-generated method stub
-        return 0;
+        return MOVING_RANGE;
     }
 
     @Override
     public ImageIcon getImage() {
-        // TODO Auto-generated method stub
-        return null;
+        return grieverImage;
     }
 
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
-        return null;
+        return "Griever";
     }
 
     @Override
     public Location getLocation() {
-        // TODO Auto-generated method stub
-        return null;
+        return location;
     }
 
     @Override
     public int getStrength() {
-        // TODO Auto-generated method stub
-        return 0;
+        return STRENGTH;
     }
 
     @Override
-    public void loseEnergy(int energy) {
-        // TODO Auto-generated method stub
-
+    public void loseEnergy(int energyLoss) {
+        this.energy -= energyLoss;
     }
 
     @Override
     public boolean isDead() {
-        // TODO Auto-generated method stub
-        return false;
+        return energy <= 0;
     }
 
     @Override
     public int getPlantCalories() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public int getMeatCalories() {
-        // TODO Auto-generated method stub
-        return 0;
+        return energy;
     }
 
     @Override
     public int getCoolDownPeriod() {
-        // TODO Auto-generated method stub
-        return 0;
+        return COOLDOWN;
     }
 
     @Override
     public Command getNextAction(World world) {
-        // TODO Auto-generated method stub
-        return null;
+        Command nextAction = ai.getNextAction(world, this);
+        this.energy -= ENERGY_LOSS_RATE;
+        return nextAction;
     }
 
     @Override
     public int getMaxEnergy() {
-        // TODO Auto-generated method stub
-        return 0;
+        return MAX_ENERGY;
     }
 
     @Override
     public int getViewRange() {
-        // TODO Auto-generated method stub
-        return 0;
+        return VIEW_RANGE;
     }
 
     @Override
     public int getMinimumBreedingEnergy() {
-        // TODO Auto-generated method stub
-        return 0;
+        return MIN_BREEDING_ENERGY;
     }
 
 }

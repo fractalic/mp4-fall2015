@@ -34,6 +34,7 @@ public class Main {
 	static final int INITIAL_MANS = INITIAL_GRASS / 150;
 	static final int INITIAL_WOMANS = INITIAL_GRASS / 100;
 	static final int INITIAL_HUNTERS = INITIAL_GRASS / 150;
+	static final int INITIAL_GRIEVERS = INITIAL_GRASS / 70;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -57,7 +58,7 @@ public class Main {
 		addGnats(world);
 		addRabbits(world);
 		addFoxes(world);
-		// TODO: You may add your own creatures here!
+		addGrievers(world);
 	}
 
 	private void addGrass(World world) {
@@ -94,5 +95,15 @@ public class Main {
 			world.addItem(rabbit);
 			world.addActor(rabbit);
 		}
+	}
+	
+	private void addGrievers(World world) {
+	    FoxAI grieverAI = new FoxAI();
+	    for (int i = 0; i < INITIAL_GRIEVERS; i++) {
+	        Location location = Util.getRandomEmptyLocation(world);
+	        Griever griever = new Griever(grieverAI, location);
+	        world.addItem(griever);
+	        world.addActor(griever);
+	    }
 	}
 }
