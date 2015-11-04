@@ -23,13 +23,13 @@ import ca.ubc.ece.cpen221.mp4.items.animals.*;
  */
 public class FoxAI extends AbstractAI {
 
-    private int  closest             = 2;                // max number;
-                                                         // greater than fox's
-                                                         // view range
+    private int closest = 2; // max number;
+                             // greater than fox's
+                             // view range
 
-    private int  closestFoodDistance = Integer.MAX_VALUE;
+    private int closestFoodDistance = Integer.MAX_VALUE;
 
-    private Item closestFood         = null;
+    private Item closestFood = null;
 
     public FoxAI() {
 
@@ -75,19 +75,27 @@ public class FoxAI extends AbstractAI {
 
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
-                otherLocations.add(new Location(animalLocation.getX() + x,
-                        animalLocation.getY() + y));
+                Location potentialLocation = new Location(
+                        animalLocation.getX() + x, animalLocation.getY() + y);
+                if (isLocationEmpty(world, animal, potentialLocation)) {
+                    otherLocations.add(potentialLocation);
+                }
             }
         }
 
         for (Location potentialLocation : desiredLocations) {
             if (isLocationEmpty(world, animal, potentialLocation)) {
-                if (animal.getEnergy() > animal.getMinimumBreedingEnergy()) {
+                if (animal.getEnergy() > 3
+                        * animal.getMinimumBreedingEnergy()) {
                     return new BreedCommand(animal, potentialLocation);
                 }
                 return new MoveCommand(animal, potentialLocation);
             }
-            
+
+        }
+        if (!otherLocations.isEmpty()) {
+            return new MoveCommand(animal, otherLocations.get((int) Math
+                    .round(Math.random() * (otherLocations.size() - 1))));
         }
         return action;
     }

@@ -1,6 +1,8 @@
 package ca.ubc.ece.cpen221.mp4.ai;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import ca.ubc.ece.cpen221.mp4.ArenaWorld;
@@ -31,32 +33,70 @@ public class RabbitAI extends AbstractAI {
     public RabbitAI() {
     }
 
+    private int  closestFoodDistance = Integer.MAX_VALUE;
+    private Item closestFood         = null;
+
     @Override
     public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
         Set<Item> nearbyItems = world.searchSurroundings(animal);
-        // int closestPlantDistance = Integer.MAX_VALUE;
+        closestFoodDistance = Integer.MAX_VALUE;
 
-        Command action = new MoveCommand(animal,
-                Util.getRandomEmptyAdjacentLocation((World) world,
-                        animal.getLocation()));
+        Command action = new WaitCommand();
+        List<Location> desiredLocations = new ArrayList<Location>();
+        List<Location> otherLocations = new ArrayList<Location>();
+        Location animalLocation = animal.getLocation();
 
         for (Item item : nearbyItems) {
-            int distance = item.getLocation()
+            int distanceToItem = item.getLocation()
                     .getDistance(animal.getLocation());
-            if (item.getStrength() > animal.getStrength()) {
-            }
-            if (item.getPlantCalories() > 0) {
-                if (distance == 1 && item.getStrength() < animal.getStrength()) {
+            int deltaXToItem = animalLocation.getX()
+                    - item.getLocation().getX();
+            int deltaYToItem = animalLocation.getY()
+                    - item.getLocation().getY();
+            int stepXTowardItem = deltaXToItem > 0 ? animal.getMovingRange()
+                    : -animal.getMovingRange();
+            int stepYTowardItem = deltaYToItem > 0 ? animal.getMovingRange()
+                    : -animal.getMovingRange();
+
+            if (item.getStrength() >= animal.getStrength()) {
+                desiredLocations.add(
+                        new Location(animalLocation.getX() - stepXTowardItem,
+                                animalLocation.getY() - stepYTowardItem));
+            } else if (item.getPlantCalories() > 0) {
+
+                if (distanceToItem == 1) {
                     return new EatCommand(animal, item);
                 }
-                Direction dirTo = Util.getDirectionTowards(animal.getLocation(),
-                        item.getLocation());
-                Location idealLocation = new Location(animal.getLocation(),
-                        dirTo);
-                if (Util.isLocationEmpty((World) world, idealLocation)) {
-                    action = new MoveCommand(animal, idealLocation);
+
+                desiredLocations.add(
+                        new Location(animalLocation.getX() + stepXTowardItem,
+                                animalLocation.getY() + stepYTowardItem));
+            }
+        }
+
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                Location potentialLocation = new Location(
+                        animalLocation.getX() + x, animalLocation.getY() + y);
+                if (isLocationEmpty(world, animal, potentialLocation)) {
+                    otherLocations.add(potentialLocation);
                 }
             }
+        }
+
+        for (Location potentialLocation : desiredLocations) {
+            if (isLocationEmpty(world, animal, potentialLocation)) {
+                if (animal.getEnergy() > animal.getMinimumBreedingEnergy()) {
+                    return new BreedCommand(animal, potentialLocation);
+                }
+                return new MoveCommand(animal, potentialLocation);
+            }
+
+        }
+        
+        if (!otherLocations.isEmpty()) {
+            return new MoveCommand(animal, otherLocations.get((int) Math
+                    .round(Math.random() * (otherLocations.size() - 1))));
         }
         return action;
     }
