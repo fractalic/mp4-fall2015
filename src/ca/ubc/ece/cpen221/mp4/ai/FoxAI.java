@@ -23,13 +23,13 @@ import ca.ubc.ece.cpen221.mp4.items.animals.*;
  */
 public class FoxAI extends AbstractAI {
 
-    private int closest = 2; // max number;
-                             // greater than fox's
-                             // view range
+    private int  closest             = 2;                // max number;
+                                                         // greater than fox's
+                                                         // view range
 
-    private int closestFoodDistance = Integer.MAX_VALUE;
+    private int  closestFoodDistance = Integer.MAX_VALUE;
 
-    private Item closestFood = null;
+    private Item closestFood         = null;
 
     public FoxAI() {
 
@@ -60,16 +60,21 @@ public class FoxAI extends AbstractAI {
             if (item.getStrength() >= animal.getStrength()) {
                 desiredLocations.add(
                         new Location(animalLocation.getX() - stepXTowardItem,
-                                animalLocation.getY() - stepYTowardItem));
+                                animalLocation.getY()));
+                desiredLocations.add(new Location(animalLocation.getX(),
+                        animalLocation.getY() - stepYTowardItem));
             } else if (item.getMeatCalories() > 0) {
 
-                if (distanceToItem == 1) {
+                if (distanceToItem == 1
+                        && animal.getEnergy() < animal.getMaxEnergy()) {
                     return new EatCommand(animal, item);
                 }
 
                 desiredLocations.add(
                         new Location(animalLocation.getX() + stepXTowardItem,
-                                animalLocation.getY() + stepYTowardItem));
+                                animalLocation.getY()));
+                desiredLocations.add(new Location(animalLocation.getX(),
+                        animalLocation.getY() + stepYTowardItem));
             }
         }
 
@@ -85,7 +90,7 @@ public class FoxAI extends AbstractAI {
 
         for (Location potentialLocation : desiredLocations) {
             if (isLocationEmpty(world, animal, potentialLocation)) {
-                if (animal.getEnergy() > 3
+                if (animal.getEnergy() > 5
                         * animal.getMinimumBreedingEnergy()) {
                     return new BreedCommand(animal, potentialLocation);
                 }

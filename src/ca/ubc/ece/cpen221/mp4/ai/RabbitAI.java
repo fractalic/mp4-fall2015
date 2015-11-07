@@ -61,16 +61,21 @@ public class RabbitAI extends AbstractAI {
             if (item.getStrength() >= animal.getStrength()) {
                 desiredLocations.add(
                         new Location(animalLocation.getX() - stepXTowardItem,
-                                animalLocation.getY() - stepYTowardItem));
+                                animalLocation.getY()));
+                desiredLocations.add(new Location(animalLocation.getX(),
+                        animalLocation.getY() - stepYTowardItem));
             } else if (item.getPlantCalories() > 0) {
 
-                if (distanceToItem == 1) {
+                if (distanceToItem == 1
+                        && animal.getEnergy() < animal.getMaxEnergy()) {
                     return new EatCommand(animal, item);
                 }
 
                 desiredLocations.add(
                         new Location(animalLocation.getX() + stepXTowardItem,
-                                animalLocation.getY() + stepYTowardItem));
+                                animalLocation.getY()));
+                desiredLocations.add(new Location(animalLocation.getX(),
+                        animalLocation.getY() + stepYTowardItem));
             }
         }
 
@@ -86,14 +91,15 @@ public class RabbitAI extends AbstractAI {
 
         for (Location potentialLocation : desiredLocations) {
             if (isLocationEmpty(world, animal, potentialLocation)) {
-                if (animal.getEnergy() > animal.getMinimumBreedingEnergy()) {
+                if (animal.getEnergy() > 4
+                        * animal.getMinimumBreedingEnergy()) {
                     return new BreedCommand(animal, potentialLocation);
                 }
                 return new MoveCommand(animal, potentialLocation);
             }
 
         }
-        
+
         if (!otherLocations.isEmpty()) {
             return new MoveCommand(animal, otherLocations.get((int) Math
                     .round(Math.random() * (otherLocations.size() - 1))));

@@ -7,6 +7,10 @@ import ca.ubc.ece.cpen221.mp4.items.LivingItem;
  * Food is something edible by a {@link LivingItem}. It provides energy for the
  * survival of the {@link LivingItem}. In this assignment, every {@link Item} is
  * a Food, although for a {@link LivingItem}, not all Food are edible.
+ * 
+ * All are food. Resistance is futile.
+ * 
+ * But metal has no calories.
  */
 public interface Food {
 
