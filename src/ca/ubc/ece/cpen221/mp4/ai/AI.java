@@ -3,6 +3,7 @@ package ca.ubc.ece.cpen221.mp4.ai;
 import ca.ubc.ece.cpen221.mp4.ArenaWorld;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
 import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
+import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.ArenaVehicle;
 
 /**
  * The AI interface for all animal AIs. Your implementations of FoxAI and
@@ -21,5 +22,7 @@ public interface AI {
 	 * @return the next action for animal
 	 */
 	Command getNextAction(ArenaWorld world, ArenaAnimal animal);
+
+	Command getNextAction(ArenaWorld world, ArenaVehicle vehicle);
 
 }

@@ -22,7 +22,7 @@ import ca.ubc.ece.cpen221.mp4.items.structures.Structure;
  * @author benhughes
  *
  */
-public interface Vehicle extends Structure, MoveableItem, Actor {
+public interface ArenaVehicle extends Structure, MoveableItem, Actor {
 
     // TODO: it would be super cool if dead vehicles were not removed from
     // the screen until being collected by a tow truck.

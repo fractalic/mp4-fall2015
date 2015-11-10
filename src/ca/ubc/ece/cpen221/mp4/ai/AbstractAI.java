@@ -15,6 +15,7 @@ import ca.ubc.ece.cpen221.mp4.commands.MoveCommand;
 import ca.ubc.ece.cpen221.mp4.commands.WaitCommand;
 import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
+import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.ArenaVehicle;
 
 public class AbstractAI implements AI {
 
@@ -54,5 +55,11 @@ public class AbstractAI implements AI {
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
 		return new WaitCommand();
+	}
+
+	@Override
+	public Command getNextAction(ArenaWorld world, ArenaVehicle vehicle) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

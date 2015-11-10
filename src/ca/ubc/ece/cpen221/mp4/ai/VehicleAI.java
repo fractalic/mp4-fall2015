@@ -18,18 +18,18 @@ import ca.ubc.ece.cpen221.mp4.items.*;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
 import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.ArenaVehicle;
 
-public class ArenaAnimalAI implements AI {
+public class VehicleAI implements AI {
 	private int energy;
 
-	public ArenaAnimalAI(int energy) {
+	public VehicleAI(int energy) {
 		this.energy = energy;
 	}
 
-	public boolean isLocationEmpty(ArenaWorld world, ArenaAnimal animal, Location location) {
+	public boolean isLocationEmpty(ArenaWorld world, ArenaVehicle vehicle, Location location) {
 		if (!Util.isValidLocation(world, location)) {
 			return false;
 		}
-		Set<Item> possibleMoves = world.searchSurroundings(animal);
+		Set<Item> possibleMoves = world.searchSurroundings(vehicle);
 		Iterator<Item> it = possibleMoves.iterator();
 		while (it.hasNext()) {
 			Item item = it.next();
@@ -41,30 +41,24 @@ public class ArenaAnimalAI implements AI {
 	}
 
 	@Override
-	public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
+	public Command getNextAction(ArenaWorld world, ArenaVehicle vehicle) {
 		Direction dir = Util.getRandomDirection();
-		Location targetLocation = new Location(animal.getLocation(), dir);
-		Set<Item> possibleEats = world.searchSurroundings(animal);
-		Location current = animal.getLocation();
+		Location targetLocation = new Location(vehicle.getLocation(), dir);
+		Set<Item> possibleEats = world.searchSurroundings(vehicle);
+		Location current = vehicle.getLocation();
 		Iterator<Item> it = possibleEats.iterator();
 		while (it.hasNext()) {
 			Item item = it.next();
 			if ((item.getName().equals("Gnat") || item.getName().equals("Rabbit"))
 					&& (current.getDistance(item.getLocation()) == 1)) {
-				return new EatCommand(animal, item); // arena animals eat gnats
+				return new EatCommand(vehicle, item); // arena animals eat gnats
 														// and rabbits
 			}
 		}
-		if (Util.isValidLocation(world, targetLocation) && this.isLocationEmpty(world, animal, targetLocation)) {
-			return new MoveCommand(animal, targetLocation);
+		if (Util.isValidLocation(world, targetLocation) && this.isLocationEmpty(world, vehicle, targetLocation)) {
+			return new MoveCommand(vehicle, targetLocation);
 		}
 		return new WaitCommand();
-	}
-
-	@Override
-	public Command getNextAction(ArenaWorld world, ArenaVehicle vehicle) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

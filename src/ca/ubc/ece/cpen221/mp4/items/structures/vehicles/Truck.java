@@ -5,40 +5,48 @@ import javax.swing.ImageIcon;
 import ca.ubc.ece.cpen221.mp4.Actor;
 import ca.ubc.ece.cpen221.mp4.Food;
 import ca.ubc.ece.cpen221.mp4.Location;
+import ca.ubc.ece.cpen221.mp4.Util;
 import ca.ubc.ece.cpen221.mp4.World;
 import ca.ubc.ece.cpen221.mp4.ai.AI;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
 import ca.ubc.ece.cpen221.mp4.items.LivingItem;
 import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 import ca.ubc.ece.cpen221.mp4.items.animals.Fox;
+import ca.ubc.ece.cpen221.mp4.items.animals.Rabbit;
 
 
-public abstract class AbstractVehicle implements ArenaVehicle {
-
-	private int INITIAL_ENERGY;
-    private int INITIAL_INTEGRITY;
-    private int MAX_ENERGY;
-    private int MAX_INTEGRITY;
-    private int STRENGTH;
-    private int VIEW_RANGE;
-    private int COOLDOWN;
+public abstract class Truck implements ArenaVehicle {
+    private static final int INITIAL_ENERGY = 500;
+    private static final int INITIAL_INTEGRITY = 700;
+    private static final int MAX_ENERGY = 600;
+    private static final int MAX_INTEGRITY = 850;
+    private static final int STRENGTH = 700;
+    private static final int VIEW_RANGE = 2;
+    private static final int COOLDOWN = 1;
     
-    private int FUEL_LOSS_RATE;
-    
-    private ImageIcon image;
+    private static final ImageIcon truckImage = Util.loadImage("truck.gif");;
     
     private int integrity = INITIAL_INTEGRITY;
 
-    private AI ai;
+    private final AI ai;
 
     private Location location;
     private int energy = INITIAL_ENERGY;
 
-	@Override
-	public Command getNextAction(World world) {
-		Command nextAction = ai.getNextAction(world, this);
-		this.energy -= FUEL_LOSS_RATE; // Loses 1 energy regardless of action.
-		return nextAction;
+	/**
+	 * Create a new {@link Truck} with an {@link AI} at
+	 * <code> initialLocation </code>. The <code> initialLoation
+	 * </code> must be valid and empty.
+	 *
+	 * @param TruckAI
+	 *            : The AI designed for Trucks
+	 * @param initialLocation
+	 *            : the location where this Truck will be created
+	 */
+	public Truck(AI truckAI, Location initialLocation) {
+		ai = truckAI;
+		location = initialLocation;
+		energy = INITIAL_ENERGY;
 	}
     
     @Override
@@ -63,7 +71,7 @@ public abstract class AbstractVehicle implements ArenaVehicle {
 
     @Override
     public ImageIcon getImage() {
-        return image;
+        return truckImage;
     }
 
     @Override
