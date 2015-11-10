@@ -111,10 +111,8 @@ public class Bear implements ArenaAnimal {
 	}
 
 	@Override
-	public int getPlantCalories() { // bears are omnivorous!
-		// number for the amount of plant calories provided is equal to the
-		// number for the amount of energy it has
-		return energy;
+	public int getPlantCalories() { // bears are not a plant
+		return 0;
 	}
 
 	@Override

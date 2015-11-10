@@ -15,23 +15,23 @@ import ca.ubc.ece.cpen221.mp4.items.animals.Fox;
 import ca.ubc.ece.cpen221.mp4.items.animals.Rabbit;
 
 
-public abstract class Lamborghini implements ArenaVehicle {
-    private static final int INITIAL_ENERGY = 300;
+public class Lamborghini implements ArenaVehicle {
+    private static final int INITIAL_FUEL = 300;
     private static final int INITIAL_INTEGRITY = 300;
-    private static final int MAX_ENERGY = 350;
+    private static final int MAX_FUEL = 350;
     private static final int MAX_INTEGRITY = 400;
     private static final int STRENGTH = 350;
     private static final int VIEW_RANGE = 4;
     private static final int COOLDOWN = 1;
     
-    private static final ImageIcon lamborghiniImage = Util.loadImage("lamborghini.gif");;
+    private static final ImageIcon lamborghiniImage = Util.loadImage("lamborghini.gif");
     
     private int integrity = INITIAL_INTEGRITY;
 
     private final AI ai;
 
     private Location location;
-    private int energy = INITIAL_ENERGY;
+    private int fuel = INITIAL_FUEL;
 
 	/**
 	 * Create a new {@link Lamborghini} with an {@link AI} at
@@ -46,7 +46,7 @@ public abstract class Lamborghini implements ArenaVehicle {
 	public Lamborghini(AI lamborghiniAI, Location initialLocation) {
 		ai = lamborghiniAI;
 		location = initialLocation;
-		energy = INITIAL_ENERGY;
+		fuel = INITIAL_FUEL;
 	}
     
 	
@@ -57,7 +57,7 @@ public abstract class Lamborghini implements ArenaVehicle {
 
     @Override
     public int getEnergy() {
-        return energy;
+        return fuel;
     }
     
     @Override
@@ -129,7 +129,7 @@ public abstract class Lamborghini implements ArenaVehicle {
 
     @Override
     public boolean isDead() {
-        return energy <= 0;
+        return fuel <= 0;
     }
 
     @Override

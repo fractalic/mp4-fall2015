@@ -15,7 +15,7 @@ import ca.ubc.ece.cpen221.mp4.items.animals.Fox;
 import ca.ubc.ece.cpen221.mp4.items.animals.Rabbit;
 
 
-public abstract class Truck implements ArenaVehicle {
+public class Truck implements ArenaVehicle {
     private static final int INITIAL_ENERGY = 500;
     private static final int INITIAL_INTEGRITY = 700;
     private static final int MAX_ENERGY = 600;

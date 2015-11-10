@@ -16,7 +16,7 @@ import ca.ubc.ece.cpen221.mp4.items.animals.Fox;
 import ca.ubc.ece.cpen221.mp4.items.animals.Rabbit;
 
 
-public class Sedan extends AbstractArenaVehicle {
+public class Sedan extends ArenaVehicle {
     private static final int INITIAL_ENERGY = 200;
     private static final int INITIAL_INTEGRITY = 300;
     private static final int MAX_ENERGY = 300;
