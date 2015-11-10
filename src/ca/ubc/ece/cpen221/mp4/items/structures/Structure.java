@@ -71,4 +71,21 @@ public interface Structure extends Item {
      * @return the view distance (Manhattan distance) of the structure.
      */
     public int getViewRange();
+    
+    /**
+     * Override isOrganic from {@link Item}.
+     * @return false for all structures.
+     */
+    static boolean isOrganic() {
+        return false;
+    }
+    
+    /**
+     * Override isStructure from {@link Item}.
+     * 
+     * @return true for all structures.
+     */
+    static boolean isStructure() {
+        return true;
+    }
 }

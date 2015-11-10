@@ -67,5 +67,25 @@ public interface Item extends Food {
 	 * @return true if this Item is dead, false if alive
 	 */
 	boolean isDead();
+	
+	/**
+	 * Items are either organic, structure, or both. All items are assumed to
+	 * be organic unless this method is overridden.
+	 * 
+	 * @return true for all items that contain calories.
+	 */
+	static boolean isOrganic() {
+	    return true;
+	}
+	
+	/**
+     * Items are either organic, structure, or both. All items are assumed to
+     * be organic unless this method is overridden.
+     * 
+     * @return true for all items that do not contain calories.
+     */
+    static boolean isStructure() {
+        return false;
+    }
 
 }
