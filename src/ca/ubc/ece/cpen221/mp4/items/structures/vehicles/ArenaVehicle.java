@@ -46,10 +46,12 @@ public interface ArenaVehicle extends Structure, MoveableItem, Actor {
      * This value will be zero if the vehicle reaches its maximum speed.
      * 
      * @return value of current acceleration
+     *
      */
-    public int getAcceleration();
+    // TODO: probably don't need this
+    //public int getAcceleration();
     
-    /*
+    /**
      * Return the current speed of the vehicle
      * Speed is increased by the current value of the acceleration and controlled
      * by the cooldown period
@@ -57,7 +59,7 @@ public interface ArenaVehicle extends Structure, MoveableItem, Actor {
      */
     public int getSpeed();
     
-    /*
+    /**
      * Return the maximum speed of the vehicle.
      * Beyond this point the vehicle should explode, which is the same as being
      * destroyed
@@ -74,6 +76,14 @@ public interface ArenaVehicle extends Structure, MoveableItem, Actor {
     public int getMaxTurningSpeed();
     
     /**
+     * Change the speed of a vehicle by at most the maximum acceleration
+     * of the vehicle.
+     * 
+     * @param deltaV the change in speed.
+     */
+    public void accelerate(int deltaV);
+    
+    /**
      * Take appropriate action when the vehicle will collide with another item.
      * A crash occurs when the item attempts to move onto another item.
      * 
@@ -81,7 +91,7 @@ public interface ArenaVehicle extends Structure, MoveableItem, Actor {
      */
     public void crash(Item item);
     
-    /*
+    /**
      * Take appropriate action when the vehicle goes too fast.
      * Vehicle is destroyed if it exceeds a particular speed.
      * 

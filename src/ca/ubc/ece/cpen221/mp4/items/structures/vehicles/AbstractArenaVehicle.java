@@ -36,7 +36,7 @@ public abstract class AbstractArenaVehicle implements ArenaVehicle {
     private int acceleration = INITIAL_ACCELERATION;
     private int speed = INITIAL_SPEED;
     
-    private final AI ai;
+    private AI ai;
 
     private Location location;
     private int energy = INITIAL_ENERGY;
@@ -50,8 +50,8 @@ public abstract class AbstractArenaVehicle implements ArenaVehicle {
 	}
     
     @Override
-    public int getAcceleration() {
-    	return acceleration;
+    public void accelerate(int deltaV) {
+        this.speed += Math.max(deltaV, MAX_ACCELERATION);
     }
     
     @Override

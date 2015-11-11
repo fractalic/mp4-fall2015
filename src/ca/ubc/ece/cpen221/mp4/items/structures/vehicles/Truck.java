@@ -9,6 +9,7 @@ import ca.ubc.ece.cpen221.mp4.Util;
 import ca.ubc.ece.cpen221.mp4.World;
 import ca.ubc.ece.cpen221.mp4.ai.AI;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
+import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.LivingItem;
 import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 import ca.ubc.ece.cpen221.mp4.items.animals.Fox;
@@ -134,6 +135,60 @@ public class Truck implements ArenaVehicle {
     @Override
     public void moveTo(Location targetLocation) {
         location = targetLocation;
+    }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Command getNextAction(World world) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int getMaxAcceleration() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int getSpeed() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int getMaxSpeed() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int getMaxTurningSpeed() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void accelerate(int deltaV) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void crash(Item item) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void tooFastTooFurious(ArenaVehicle vehicle) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
