@@ -11,6 +11,7 @@ import ca.ubc.ece.cpen221.mp4.Util;
 import ca.ubc.ece.cpen221.mp4.World;
 import ca.ubc.ece.cpen221.mp4.commands.BreedCommand;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
+import ca.ubc.ece.cpen221.mp4.commands.CrashCommand;
 import ca.ubc.ece.cpen221.mp4.commands.EatCommand;
 import ca.ubc.ece.cpen221.mp4.commands.MoveCommand;
 import ca.ubc.ece.cpen221.mp4.commands.WaitCommand;
@@ -44,21 +45,25 @@ public class VehicleAI implements AI {
 	public Command getNextAction(ArenaWorld world, ArenaVehicle vehicle) {
 		Direction dir = Util.getRandomDirection();
 		Location targetLocation = new Location(vehicle.getLocation(), dir);
-		Set<Item> possibleEats = world.searchSurroundings(vehicle);
+		Set<Item> possibleRoadKill = world.searchSurroundings(vehicle);
 		Location current = vehicle.getLocation();
-		Iterator<Item> it = possibleEats.iterator();
+		Iterator<Item> it = possibleRoadKill.iterator();
 		while (it.hasNext()) {
 			Item item = it.next();
-			if ((item.getName().equals("Gnat") || item.getName().equals("Rabbit"))
-					&& (current.getDistance(item.getLocation()) == 1)) {
-				return new EatCommand(vehicle, item); // arena animals eat gnats
-														// and rabbits
+			if (current.getDistance(item.getLocation()) == 1) {
+				return new CrashCommand(vehicle, item); // car crashes into environment
 			}
 		}
 		if (Util.isValidLocation(world, targetLocation) && this.isLocationEmpty(world, vehicle, targetLocation)) {
 			return new MoveCommand(vehicle, targetLocation);
 		}
 		return new WaitCommand();
+	}
+
+	@Override
+	public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

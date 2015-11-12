@@ -9,6 +9,7 @@ import ca.ubc.ece.cpen221.mp4.Util;
 import ca.ubc.ece.cpen221.mp4.World;
 import ca.ubc.ece.cpen221.mp4.ai.AI;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
+import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.LivingItem;
 import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 import ca.ubc.ece.cpen221.mp4.items.animals.Fox;
@@ -16,13 +17,18 @@ import ca.ubc.ece.cpen221.mp4.items.animals.Rabbit;
 
 
 public class Lamborghini implements ArenaVehicle {
-    private static final int INITIAL_FUEL = 300;
+    private static final int INITIAL_ENERGY = 300;
     private static final int INITIAL_INTEGRITY = 300;
-    private static final int MAX_FUEL = 350;
+    private static final int MAX_ENERGY = 350;
     private static final int MAX_INTEGRITY = 400;
     private static final int STRENGTH = 350;
     private static final int VIEW_RANGE = 4;
     private static final int COOLDOWN = 1;
+	private static final int INITIAL_ACCELERATION = 0;
+	private static final int INITIAL_SPEED = 0;
+	private static final int MAX_ACCELERATION = 1;
+	private static final int MAX_SPEED = 1000;
+	private static final int MAX_TURNING_SPEED = 1;
     
     private static final ImageIcon lamborghiniImage = Util.loadImage("lamborghini.gif");
     
@@ -31,7 +37,7 @@ public class Lamborghini implements ArenaVehicle {
     private final AI ai;
 
     private Location location;
-    private int fuel = INITIAL_FUEL;
+    private int energy = INITIAL_ENERGY;
 
 	/**
 	 * Create a new {@link Lamborghini} with an {@link AI} at
@@ -46,7 +52,7 @@ public class Lamborghini implements ArenaVehicle {
 	public Lamborghini(AI lamborghiniAI, Location initialLocation) {
 		ai = lamborghiniAI;
 		location = initialLocation;
-		fuel = INITIAL_FUEL;
+		energy = INITIAL_ENERGY;
 	}
     
 	
@@ -57,7 +63,7 @@ public class Lamborghini implements ArenaVehicle {
 
     @Override
     public int getEnergy() {
-        return fuel;
+        return energy;
     }
     
     @Override
@@ -129,12 +135,74 @@ public class Lamborghini implements ArenaVehicle {
 
     @Override
     public boolean isDead() {
-        return fuel <= 0;
+        return energy <= 0;
     }
 
     @Override
     public void moveTo(Location targetLocation) {
         location = targetLocation;
     }
+    
+    @Override
+    public Command getNextAction(World world) {
+        Command nextAction = ai.getNextAction(world, this);
+        return nextAction;
+    }
+
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int getMaxAcceleration() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getSpeed() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getMaxSpeed() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getMaxTurningSpeed() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void accelerate(int deltaV) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void crash(Item item) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void tooFastTooFurious(ArenaVehicle vehicle) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

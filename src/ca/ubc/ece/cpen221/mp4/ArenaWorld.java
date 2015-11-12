@@ -4,6 +4,7 @@ import java.util.Set;
 
 import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
+import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.ArenaVehicle;
 
 /**
  * Subset of the world visible to {@link ArenaAnimal}s.
@@ -21,6 +22,20 @@ public interface ArenaWorld {
 	 * @return a set of items visible to <code>animal</code>
 	 */
 	Set<Item> searchSurroundings(ArenaAnimal animal);
+	
+	/**
+	 * Returns items within the view range of <code>vehicle</code>, which is
+	 * defined by {@link ArenaAnimal#getViewRange()}.
+	 *
+	 * @see World#searchSurroundings(Location, int)
+	 *
+	 * @param vehicle
+	 *            the ArenaVehicle whose location is used
+	 * @return a set of items visible to <code>vehicle</code>
+	 */
+
+	Set<Item> searchSurroundings(ArenaVehicle vehicle);
+	
 
 	/**
 	 * @return an int representing the number of columns this World has
