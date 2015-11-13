@@ -35,6 +35,8 @@ public class FoxAI extends AbstractAI {
 
     }
 
+    // TODO: make this smarter
+    
     @Override
     public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
         Set<Item> nearbyItems = world.searchSurroundings(animal);
