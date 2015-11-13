@@ -30,7 +30,7 @@ public class Truck implements ArenaVehicle {
 	private static final int MAX_SPEED = 1000;
 	private static final int MAX_TURNING_SPEED = 1;
     
-    private static final ImageIcon image = Util.loadImage("truck.gif");;
+    private static final ImageIcon image = Util.loadImage("trucks.gif");
     
     private int integrity = INITIAL_INTEGRITY;
 	private int acceleration = INITIAL_ACCELERATION;
