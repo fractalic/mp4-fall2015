@@ -20,16 +20,17 @@ import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
  */
 public class River extends AbstractActiveEnvironment {
 
-    private final int INITIAL_ENERGY          = 200;
-    private final int MAX_ENERGY              = 200;
+    private final int INITIAL_ENERGY          = 400;
+    private final int MAX_ENERGY              = 400;
     private final int STRENGTH                = 5000;
 
     private final int INITIAL_MOVING_RANGE    = 1;
-    private final int INITIAL_COOLDOWN        = 10;
+    private final int INITIAL_COOLDOWN        = 5;
 
     private final int INITIAL_EXPANSION_RANGE = 1;
-    
-    private boolean nextCommandWait = true;
+
+    private boolean   nextCommandWait         = true;
+    private boolean   isHead                  = true;
 
     public River(Location initialLocation) {
         this.setMAX_ENERGY(MAX_ENERGY);
@@ -57,12 +58,14 @@ public class River extends AbstractActiveEnvironment {
 
     @Override
     public String getName() {
-        return "Fire";
+        return "Water";
     }
 
     @Override
     public Command getNextAction(World world) {
-        if (nextCommandWait) {
+        this.loseEnergy(20);
+
+        if (nextCommandWait || !isHead) {
             nextCommandWait = false;
             return new WaitCommand();
         }
@@ -75,14 +78,14 @@ public class River extends AbstractActiveEnvironment {
                 Location there = new Location(here.getX() + x, here.getY() + y);
 
                 if (here.getDistance(there) <= super.getExpansionRange()) {
-                    if (Math.random() > .95) {
-                        expansion.add(there);
+                    if (Math.random() > .8) {
+                        if (expansion.isEmpty()) {
+                            expansion.add(there);
+                        }
                     }
                 }
             }
         }
-
-        this.loseEnergy(20);
 
         return new ExpandCommand(this, expansion);
     }
@@ -90,6 +93,8 @@ public class River extends AbstractActiveEnvironment {
     @Override
     public ActiveEnvironment spread() {
         River child = new River(super.getLocation());
+        this.isHead = false;
+        child.isHead = true;
         return child;
     }
 

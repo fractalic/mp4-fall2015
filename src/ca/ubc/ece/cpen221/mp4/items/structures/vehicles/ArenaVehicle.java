@@ -23,14 +23,6 @@ import ca.ubc.ece.cpen221.mp4.items.structures.Structure;
  *
  */
 public interface ArenaVehicle extends Structure, MoveableItem, Actor {
-
-    // TODO: it would be super cool if dead vehicles were not removed from
-    // the screen until being collected by a tow truck.
-    // TODO: add a command for crashes.
-    // TODO: add a command for towing?
-    // TODO: change image of vehicle when destroyed?
-    // TODO: add command to call tow truck.
-    
     
     /**
      * Return the maximum change in speed of the vehicle. The vehicle's speed

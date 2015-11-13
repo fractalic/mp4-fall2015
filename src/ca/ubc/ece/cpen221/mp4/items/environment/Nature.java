@@ -17,12 +17,14 @@ import ca.ubc.ece.cpen221.mp4.items.Item;
 /**
  * Nature does not show up in the world, but it places {@link ActiveEnvironment}
  * items at random intervals.
+ * 
+ * @author benhughes
  */
 public class Nature implements Actor {
 
     @Override
     public int getCoolDownPeriod() {
-        return (int) Math.random() * 10 + 50;
+        return (int) Math.random() * 10 + 30;
     }
 
     @SuppressWarnings("unused")
@@ -44,7 +46,7 @@ public class Nature implements Actor {
 
         final Location riverhead = Util.getRandomEmptyLocation(world);
 
-        if (Math.random() > 0.5) {
+        if (Math.random() > 0.7) {
             // An anonymous Command class which starts fires.
             return new Command() {
 

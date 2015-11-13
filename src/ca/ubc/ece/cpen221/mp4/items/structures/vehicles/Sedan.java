@@ -29,7 +29,7 @@ public class Sedan implements ArenaVehicle {
 	private static final int VIEW_RANGE = 5;
 	private static final int COOLDOWN = 1;
 
-	private ImageIcon image = Util.loadImage("sedan.gif");
+	private ImageIcon image = Util.loadImage("folksvagen.gif");
 
 	private int integrity = INITIAL_INTEGRITY;
 	private int acceleration = INITIAL_ACCELERATION;

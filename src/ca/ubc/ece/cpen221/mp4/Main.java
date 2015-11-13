@@ -9,6 +9,7 @@ import ca.ubc.ece.cpen221.mp4.items.animals.*;
 import ca.ubc.ece.cpen221.mp4.items.environment.Nature;
 import ca.ubc.ece.cpen221.mp4.items.environment.Volcano;
 import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.Lamborghini;
+import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.Sedan;
 import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.Truck;
 import ca.ubc.ece.cpen221.mp4.staff.WorldImpl;
 import ca.ubc.ece.cpen221.mp4.staff.WorldUI;
@@ -35,14 +36,10 @@ public class Main {
 	static final int INITIAL_CARS = INITIAL_GRASS / 100;
 	static final int INITIAL_TRUCKS = INITIAL_GRASS / 150;
 	static final int INITIAL_MOTORCYCLES = INITIAL_GRASS / 64;
-	static final int INITIAL_MANS = INITIAL_GRASS / 150;
-	static final int INITIAL_WOMANS = INITIAL_GRASS / 100;
-	static final int INITIAL_HUNTERS = INITIAL_GRASS / 150;
 	static final int INITIAL_GRIEVERS = INITIAL_GRASS / 70;
 	static final int INITIAL_LAMBORGHINIS = INITIAL_GRASS / 32;
 	static final int INITIAL_WOLVES = INITIAL_GRASS / 64;
-	static final int INITIAL_VOLCANOS = INITIAL_GRASS / 50;
-	static final int INITIAL_WATER = INITIAL_GRASS / 80;
+	static final int INITIAL_VOLCANOS = INITIAL_GRASS / 70;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -70,6 +67,7 @@ public class Main {
 		addGrievers(world);
 		addTrucks(world);
 		addLamborghinis(world);
+		addSedans(world);
 		addBears(world);
 		addWolves(world);
 		addVolcanos(world);
@@ -130,6 +128,16 @@ public class Main {
 			world.addActor(truck);
 		}
 	}
+	
+	private void addSedans(World world) {
+        VehicleAI sedanAI = new VehicleAI();
+        for (int i = 0; i < INITIAL_CARS; i++) {
+            Location location = Util.getRandomEmptyLocation(world);
+            Sedan sedan = new Sedan(sedanAI, location);
+            world.addItem(sedan);
+            world.addActor(sedan);
+        }
+    }
 	
 	private void addLamborghinis(World world) {
 		VehicleAI lamborghiniAI = new VehicleAI();

@@ -4,12 +4,18 @@ import ca.ubc.ece.cpen221.mp4.Actor;
 import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 
-
+/**
+ * {@link ActiveEnvironment}s are non-living environmental effects and objects.
+ * They can change their size, or produce related items are nearby locations.
+ * 
+ * @author benhughes
+ *
+ */
 public interface ActiveEnvironment extends MoveableItem, Actor {
     /**
-     * Spread to an adjacent square. This is very similar to
-     * breeding of {@link LivingItem}s, but the child item
-     * must be placed on already occupied locations.
+     * Spread onto an adjacent item. This is effectively a combination
+     * of eating and breeding of {@link LivingItem}s, where the child item
+     * must be placed on an already occupied location.
      */
     public ActiveEnvironment spread();
     

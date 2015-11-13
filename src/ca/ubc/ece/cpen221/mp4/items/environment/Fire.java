@@ -26,6 +26,7 @@ public class Fire extends AbstractActiveEnvironment {
     private final int INITIAL_COOLDOWN        = 10;
 
     private final int INITIAL_EXPANSION_RANGE = 1;
+    private boolean nextCommandWait = true;
 
     public Fire(Location initialLocation) {
         this.setMAX_ENERGY(MAX_ENERGY);
@@ -58,11 +59,15 @@ public class Fire extends AbstractActiveEnvironment {
 
     @Override
     public Command getNextAction(World world) {
+        if (nextCommandWait) {
+            nextCommandWait = false;
+            return new WaitCommand();
+        }
         Set<Item> nearbyItems = world.searchSurroundings(this.getLocation(),
                 this.getExpansionRange());
 
         for (Item item : nearbyItems) {
-            if (item.getName() == "grass") {
+            if (item.getStrength() < super.getStrength()) {
                 return new SpreadCommand(this, item);
             }
         }

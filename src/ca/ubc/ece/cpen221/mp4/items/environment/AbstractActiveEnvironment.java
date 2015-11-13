@@ -9,7 +9,12 @@ import ca.ubc.ece.cpen221.mp4.commands.Command;
 import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 
-
+/**
+ * The template for {@link ActiveEnvironment}s.
+ * 
+ * @author benhughes
+ *
+ */
 public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
     private int MAX_ENERGY;
     private int STRENGTH;
@@ -61,7 +66,7 @@ public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
     }
     
     protected void setEnergy(int energy) {
-        this.energy = energy;
+        this.energy = Math.min(MAX_ENERGY, energy);
     }
     
     protected void setImage(ImageIcon image) {
