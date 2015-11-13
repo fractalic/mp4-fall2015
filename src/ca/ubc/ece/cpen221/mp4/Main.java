@@ -38,6 +38,7 @@ public class Main {
 	static final int INITIAL_HUNTERS = INITIAL_GRASS / 150;
 	static final int INITIAL_GRIEVERS = INITIAL_GRASS / 70;
 	static final int INITIAL_LAMBORGHINIS = INITIAL_GRASS / 32;
+	static final int INITIAL_WOLVES = INITIAL_GRASS / 64;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -64,6 +65,8 @@ public class Main {
 		addGrievers(world);
 		addTrucks(world);
 		addLamborghinis(world);
+		addBears(world);
+		addWolves(world);
 	}
 
 	private void addGrass(World world) {
@@ -129,6 +132,26 @@ public class Main {
 			Lamborghini lamborghini = new Lamborghini(lamborghiniAI, location);
 			world.addItem(lamborghini);
 			world.addActor(lamborghini);
+		}
+	}
+	
+	private void addWolves(World world) {
+		WolfAI wolfAI = new WolfAI();
+		for (int i = 0; i < INITIAL_WOLVES; i++) {
+			Location location = Util.getRandomEmptyLocation(world);
+			Wolf wolf = new Wolf(wolfAI, location);
+			world.addItem(wolf);
+			world.addActor(wolf);
+		}
+	}
+	
+	private void addBears(World world) {
+		BearAI bearAI = new BearAI();
+		for (int i = 0; i < INITIAL_BEARS; i++) {
+			Location location = Util.getRandomEmptyLocation(world);
+			Bear bear = new Bear(bearAI, location);
+			world.addItem(bear);
+			world.addActor(bear);
 		}
 	}
 }
