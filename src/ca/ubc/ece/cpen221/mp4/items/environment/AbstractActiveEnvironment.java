@@ -11,8 +11,6 @@ import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 
 
 public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
-    // TODO: add ai or overlord to control environment
-    // TODO: add command to spread
     private int MAX_ENERGY;
     private int STRENGTH;
     
@@ -23,6 +21,7 @@ public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
 
     private Location location;
     private int energy;
+    private int expansionRange;
     
     
     @Override
@@ -30,6 +29,11 @@ public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
     
     @Override
     public abstract ActiveEnvironment spread();
+    
+    @Override
+    public ActiveEnvironment expand() {
+        return spread();
+    }
     
     @Override
     public abstract void consume(Item item);
@@ -43,6 +47,10 @@ public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
         this.STRENGTH = STRENGTH;
     }
     
+    
+    protected void setExpansionRange(int expRange) {
+        this.expansionRange = expRange;
+    }
     
     protected void setCooldown(int cooldown) {
         this.cooldown = cooldown;
@@ -111,6 +119,11 @@ public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
     @Override
     public int getMeatCalories() {
         return 0;
+    }
+    
+    @Override
+    public int getExpansionRange() {
+        return expansionRange;
     }
 
 }
