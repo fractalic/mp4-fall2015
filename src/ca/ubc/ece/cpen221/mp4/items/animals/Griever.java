@@ -52,12 +52,12 @@ public class Griever extends AbstractArenaAnimal {
      * Initialize constants in the superclass {@link AbstractArenaAnimal}.
      */
     private void initSuper() {
-        super.setINITIAL_ENERGY(INITIAL_ENERGY);
         super.setMAX_ENERGY(MAX_ENERGY);
         super.setMIN_BREEDING_ENERGY(MIN_BREEDING_ENERGY);
         super.setCOOLDOWN(COOLDOWN);
         super.setSTRENGTH(STRENGTH);
         super.setVIEW_RANGE(VIEW_RANGE);
+        super.setMOVING_RANGE(MOVING_RANGE);
     }
 
     @Override

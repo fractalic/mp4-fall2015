@@ -16,18 +16,18 @@ public abstract class AbstractArenaAnimal implements ArenaAnimal { // abstract
                                                                    // arena
                                                                    // animals
 
-    private int       INITIAL_ENERGY;
     private int       MAX_ENERGY;
     private int       STRENGTH;
     private int       VIEW_RANGE;
     private int       MIN_BREEDING_ENERGY;
     private int       COOLDOWN;
+    private int       MOVING_RANGE;
 
     private AI        ai;
     private ImageIcon image;
 
     private Location  location;
-    private int       energy = INITIAL_ENERGY;
+    private int       energy;
 
     @Override
     public abstract LivingItem breed();
@@ -37,12 +37,12 @@ public abstract class AbstractArenaAnimal implements ArenaAnimal { // abstract
         energy = Math.min(MAX_ENERGY, energy + food.getMeatCalories());
     }
 
-    protected void setINITIAL_ENERGY(int i) {
-        this.INITIAL_ENERGY = i;
-    }
-
     protected void setEnergy(int i) {
         this.energy = Math.min(MAX_ENERGY, i);
+    }
+    
+    protected void setMOVING_RANGE(int m) {
+        this.MOVING_RANGE = m;
     }
 
     protected void setMAX_ENERGY(int i) {
@@ -110,7 +110,7 @@ public abstract class AbstractArenaAnimal implements ArenaAnimal { // abstract
 
     @Override
     public int getMovingRange() {
-        return 1; // Can only move to adjacent locations.
+        return MOVING_RANGE;
     }
 
     @Override
@@ -124,7 +124,7 @@ public abstract class AbstractArenaAnimal implements ArenaAnimal { // abstract
     }
 
     @Override
-    public int getPlantCalories() { // arena animals dont eat plants
+    public int getPlantCalories() { // arena animals are not plants
         return 0;
     }
 
