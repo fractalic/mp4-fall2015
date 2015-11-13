@@ -12,20 +12,22 @@ import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 
 /**
- * Fire burns adjacent plants. It spreads on its own.
- *
+ * Volcanos erupt to produce fire at random times.
+ * 
  * @author benhughes
+ *
  */
-public class Fire extends AbstractActiveEnvironment {
+public class Volcano extends AbstractActiveEnvironment {
 
-    private final int INITIAL_ENERGY       = 100;
-    private final int MAX_ENERGY           = 100;
-    private final int STRENGTH             = 5000;
+    private final int INITIAL_ENERGY       = 2000;
+    private final int MAX_ENERGY           = 2000;
+    private final int STRENGTH             = 10000;
 
-    private final int INITIAL_MOVING_RANGE = 1;
+    private final int INITIAL_MOVING_RANGE = 0;
     private final int INITIAL_COOLDOWN     = 10;
+    private int       eruptionRange        = 3;
 
-    public Fire(Location initialLocation) {
+    public Volcano(Location initialLocation) {
         this.setMAX_ENERGY(MAX_ENERGY);
         this.setSTRENGTH(STRENGTH);
 
@@ -35,7 +37,7 @@ public class Fire extends AbstractActiveEnvironment {
 
         this.setLocation(initialLocation);
 
-        this.setImage(Util.loadImage("fire.gif"));
+        this.setImage(Util.loadImage("volcano.gif"));
     }
 
     @Override
@@ -50,20 +52,20 @@ public class Fire extends AbstractActiveEnvironment {
 
     @Override
     public String getName() {
-        return "Fire";
+        return "Volcano";
     }
 
     @Override
     public Command getNextAction(World world) {
         Set<Item> nearbyItems = world.searchSurroundings(this.getLocation(),
-                this.getMovingRange());
-        
+                eruptionRange);
+
         for (Item item : nearbyItems) {
-            if (item.getName() == "grass") {
+            if (item.getMeatCalories() > 0 || item.getPlantCalories() > 0) {
                 return new SpreadCommand(this, item);
             }
         }
-        
+
         this.loseEnergy(10);
 
         return new WaitCommand();
@@ -71,7 +73,7 @@ public class Fire extends AbstractActiveEnvironment {
 
     @Override
     public ActiveEnvironment spread() {
-        Fire child = new Fire(super.getLocation());
+        Volcano child = new Volcano(super.getLocation());
         child.setEnergy(super.getEnergy() / 2);
         return child;
     }

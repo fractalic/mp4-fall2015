@@ -7,6 +7,7 @@ import ca.ubc.ece.cpen221.mp4.items.Gardener;
 import ca.ubc.ece.cpen221.mp4.items.Grass;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
 import ca.ubc.ece.cpen221.mp4.items.environment.Nature;
+import ca.ubc.ece.cpen221.mp4.items.environment.Volcano;
 import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.Lamborghini;
 import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.Truck;
 import ca.ubc.ece.cpen221.mp4.staff.WorldImpl;
@@ -40,6 +41,7 @@ public class Main {
 	static final int INITIAL_GRIEVERS = INITIAL_GRASS / 70;
 	static final int INITIAL_LAMBORGHINIS = INITIAL_GRASS / 32;
 	static final int INITIAL_WOLVES = INITIAL_GRASS / 64;
+	static final int INITIAL_VOLCANOS = INITIAL_GRASS / 30;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -69,6 +71,7 @@ public class Main {
 		addLamborghinis(world);
 		addBears(world);
 		addWolves(world);
+		addVolcanos(world);
 	}
 
 	private void addGrass(World world) {
@@ -155,5 +158,12 @@ public class Main {
 			world.addItem(bear);
 			world.addActor(bear);
 		}
+	}
+	
+	private void addVolcanos(World world) {
+	    for (int i = 0; i < INITIAL_VOLCANOS; i++) {
+            Location loc = Util.getRandomEmptyLocation(world);
+            world.addItem(new Volcano(loc));
+        }
 	}
 }
