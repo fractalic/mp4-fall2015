@@ -34,24 +34,40 @@ public class Nature implements Actor {
                 igniters.add(item);
             }
         }
-        
+
         if (igniters.isEmpty()) {
             return new WaitCommand();
         }
 
-        Item source = igniters
+        final Item source = igniters
                 .get((int) Math.floor(Math.random() * igniters.size()));
-        // An anonymous Command class which starts fires.
-        return new Command() {
 
-            @Override
-            public void execute(World world) {
-                Fire fire = new Fire(source.getLocation());
-                source.loseEnergy(Integer.MAX_VALUE);
-                world.addItem(fire);
-                world.addActor(fire);
-            }
-        };
+        final Location riverhead = Util.getRandomEmptyLocation(world);
+
+        if (Math.random() > 0.5) {
+            // An anonymous Command class which starts fires.
+            return new Command() {
+
+                @Override
+                public void execute(World world) {
+                    Fire fire = new Fire(source.getLocation());
+                    source.loseEnergy(Integer.MAX_VALUE);
+                    world.addItem(fire);
+                    world.addActor(fire);
+                }
+            };
+        } else {
+            // An anonymous Command class which creates rivers.
+            return new Command() {
+
+                @Override
+                public void execute(World world) {
+                    River river = new River(riverhead);
+                    world.addItem(river);
+                    world.addActor(river);
+                }
+            };
+        }
     }
 
 }

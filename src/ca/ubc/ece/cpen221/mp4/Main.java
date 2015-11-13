@@ -42,6 +42,7 @@ public class Main {
 	static final int INITIAL_LAMBORGHINIS = INITIAL_GRASS / 32;
 	static final int INITIAL_WOLVES = INITIAL_GRASS / 64;
 	static final int INITIAL_VOLCANOS = INITIAL_GRASS / 50;
+	static final int INITIAL_WATER = INITIAL_GRASS / 80;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
