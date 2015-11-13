@@ -22,6 +22,8 @@ import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.ArenaVehicle;
 public class VehicleAI implements AI {
 	private int energy;
 
+	public VehicleAI() {}
+	
 	public VehicleAI(int energy) {
 		this.energy = energy;
 	}

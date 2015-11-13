@@ -17,6 +17,7 @@ import ca.ubc.ece.cpen221.mp4.commands.InvalidCommandException;
 import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
 //import ca.ubc.ece.cpen221.mp4.items.humans.*;
+import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.ArenaVehicle;
 
 /**
  * The implementation of the {@link World}.
@@ -138,4 +139,8 @@ public class WorldImpl implements World {
 		return height;
 	}
 
+	@Override
+	public Set<Item> searchSurroundings(ArenaVehicle vehicle) {
+		return searchSurroundings(vehicle.getLocation(), vehicle.getViewRange());
+	}
 }
