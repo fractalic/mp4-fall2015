@@ -37,7 +37,7 @@ public final class CrashCommand implements Command {
 		if (vehicle.getStrength() >= item.getStrength())
 			item.loseEnergy(Integer.MAX_VALUE);
 		if (item.getLocation().getDistance(item.getLocation()) != 1)
-			throw new InvalidCommandException("Invalid EatCommand: Item is not adjacent");
+			throw new InvalidCommandException("Invalid CrashCommand: Item is not adjacent");
 
 		vehicle.crash(item);
 	}

@@ -73,8 +73,7 @@ public class Volcano extends AbstractActiveEnvironment {
 
     @Override
     public ActiveEnvironment spread() {
-        Volcano child = new Volcano(super.getLocation());
-        child.setEnergy(super.getEnergy() / 2);
+        Fire child = new Fire(super.getLocation());
         return child;
     }
 

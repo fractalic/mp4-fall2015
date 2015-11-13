@@ -163,7 +163,9 @@ public class Main {
 	private void addVolcanos(World world) {
 	    for (int i = 0; i < INITIAL_VOLCANOS; i++) {
             Location loc = Util.getRandomEmptyLocation(world);
-            world.addItem(new Volcano(loc));
+            Volcano volcano = new Volcano(loc);
+            world.addItem(volcano);
+            world.addActor(volcano);
         }
 	}
 }
