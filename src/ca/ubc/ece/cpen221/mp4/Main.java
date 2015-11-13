@@ -6,6 +6,7 @@ import ca.ubc.ece.cpen221.mp4.ai.*;
 import ca.ubc.ece.cpen221.mp4.items.Gardener;
 import ca.ubc.ece.cpen221.mp4.items.Grass;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
+import ca.ubc.ece.cpen221.mp4.items.environment.Nature;
 import ca.ubc.ece.cpen221.mp4.staff.WorldImpl;
 import ca.ubc.ece.cpen221.mp4.staff.WorldUI;
 
@@ -54,6 +55,7 @@ public class Main {
 	public void initialize(World world) {
 		addGrass(world);
 		world.addActor(new Gardener());
+		world.addActor(new Nature());
 
 		addGnats(world);
 		addRabbits(world);

@@ -6,21 +6,20 @@ import ca.ubc.ece.cpen221.mp4.Location;
 import ca.ubc.ece.cpen221.mp4.World;
 import ca.ubc.ece.cpen221.mp4.ai.AI;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
+import ca.ubc.ece.cpen221.mp4.items.Item;
+import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 
 
 public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
     // TODO: add ai or overlord to control environment
     // TODO: add command to spread
-    private int INITIAL_ENERGY;
     private int MAX_ENERGY;
     private int STRENGTH;
-    private int VIEW_RANGE;
     
     private int movingRange;
+    private int cooldown;
     
     private ImageIcon image;
-
-    private AI ai;
 
     private Location location;
     private int energy;
@@ -29,10 +28,12 @@ public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
     @Override
     public abstract String getName();
     
+    @Override
+    public abstract ActiveEnvironment spread();
     
-    protected void setINITIAL_ENERGY(int INITIAL_ENERGY) {
-        this.INITIAL_ENERGY = INITIAL_ENERGY;
-    }
+    @Override
+    public abstract void consume(Item item);
+    
     
     protected void setMAX_ENERGY(int MAX_ENERGY) {
         this.MAX_ENERGY = MAX_ENERGY;
@@ -42,17 +43,13 @@ public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
         this.STRENGTH = STRENGTH;
     }
     
-    protected void setVIEW_RANGE(int VIEW_RANGE) {
-        this.VIEW_RANGE = VIEW_RANGE;
+    
+    protected void setCooldown(int cooldown) {
+        this.cooldown = cooldown;
     }
     
-
     protected void setLocation(Location location) {
         this.location = location;
-    }
-    
-    protected void setAI(AI ai) {
-        this.ai = ai;
     }
     
     protected void setEnergy(int energy) {
@@ -67,11 +64,6 @@ public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
         this.movingRange = movingRange;
     }
     
-    
-    public int getViewRange() {
-        return VIEW_RANGE;
-    }
-    
     @Override
     public int getStrength() {
         return STRENGTH;
@@ -84,6 +76,11 @@ public abstract class AbstractActiveEnvironment implements ActiveEnvironment {
 
     public int getEnergy() {
         return energy;
+    }
+    
+    @Override
+    public int getCoolDownPeriod() {
+        return cooldown;
     }
     
     @Override
