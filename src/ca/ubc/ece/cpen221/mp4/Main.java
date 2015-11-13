@@ -6,6 +6,7 @@ import ca.ubc.ece.cpen221.mp4.ai.*;
 import ca.ubc.ece.cpen221.mp4.items.Gardener;
 import ca.ubc.ece.cpen221.mp4.items.Grass;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
+import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.Lamborghini;
 import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.Truck;
 import ca.ubc.ece.cpen221.mp4.staff.WorldImpl;
 import ca.ubc.ece.cpen221.mp4.staff.WorldUI;
@@ -62,6 +63,7 @@ public class Main {
 		addFoxes(world);
 		addGrievers(world);
 		addTrucks(world);
+		addLamborghinis(world);
 	}
 
 	private void addGrass(World world) {
@@ -117,6 +119,16 @@ public class Main {
 			Truck truck = new Truck(truckAI, location);
 			world.addItem(truck);
 			world.addActor(truck);
+		}
+	}
+	
+	private void addLamborghinis(World world) {
+		VehicleAI lamborghiniAI = new VehicleAI();
+		for (int i = 0; i < INITIAL_LAMBORGHINIS; i++) {
+			Location location = Util.getRandomEmptyLocation(world);
+			Lamborghini lamborghini = new Lamborghini(lamborghiniAI, location);
+			world.addItem(lamborghini);
+			world.addActor(lamborghini);
 		}
 	}
 }
