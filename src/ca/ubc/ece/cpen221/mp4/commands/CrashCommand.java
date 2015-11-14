@@ -10,6 +10,8 @@ import ca.ubc.ece.cpen221.mp4.items.structures.vehicles.ArenaVehicle;
 /**
  * An EatCommand is a {@link Command} which represents a {@link LivingItem}
  * eating a {@link Food}.
+ * 
+ * @author khyjoon
  */
 public final class CrashCommand implements Command {
 
@@ -21,11 +23,13 @@ public final class CrashCommand implements Command {
 	 * and <code> food </code> is the food. Remember that the food must be
 	 * adjacent to the eater, and the eater must have greater strength than the
 	 * food.
-	 *
-	 * @param item
+	 * 
+	 * @param vehicle
 	 *            the eater
-	 * @param food
+	 * @param item
 	 *            : the food
+	 *            
+	 * @author khyjoon
 	 */
 	public CrashCommand(ArenaVehicle vehicle, Item item) {
 		this.vehicle = vehicle;
