@@ -1,6 +1,8 @@
 package ca.ubc.ece.cpen221.mp4.ai;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import ca.ubc.ece.cpen221.mp4.ArenaWorld;
@@ -31,7 +33,79 @@ public class AbstractAI implements AI {
 			return Direction.SOUTH;
 		}
 	}
+	
+	/**
+     * Convert ordering to list of directions.
+     * 
+     * @param ordering
+     *            Ordering of desired directions.
+     * @return list of directions represented by ordering.
+     */
+    protected List<Direction> orderingToList(String ordering) {
+        List<Direction> directions = new ArrayList<Direction>();
 
+        for (int i = 0; i < ordering.length(); i++) {
+            switch (ordering.charAt(i)) {
+            case 'N':
+                directions.add(Direction.NORTH);
+                break;
+            case 'S':
+                directions.add(Direction.SOUTH);
+                break;
+            case 'E':
+                directions.add(Direction.EAST);
+                break;
+            case 'W':
+                directions.add(Direction.WEST);
+                break;
+
+            }
+        }
+        return directions;
+    }
+
+	/**
+     * Determine the item from a list of items that is closest to an item.
+     * 
+     * @param source The source item to examine.
+     * @param nearby A list of items near the animal.
+     * @return The closest item to the animal;
+     */
+    protected Item closestItem(Item source, List<Item> nearby) {
+        Item closest = nearby.get(0);
+        for (Item item : nearby) {
+            if (source.getLocation().getDistance(item.getLocation()) < source
+                    .getLocation().getDistance(closest.getLocation())) {
+                
+                closest = item;
+            }
+        }
+        
+        return closest;
+    }
+    
+    /**
+     * Get the average location of a list of items.
+     * 
+     * @param list
+     *            of items to be averaged.
+     * @return the average location of the list
+     */
+    protected Location averageLocation(List<Item> list) {
+        int averageX = 0;
+        int averageY = 0;
+
+        for (Item item : list) {
+            averageX += item.getLocation().getX();
+            averageY += item.getLocation().getY();
+        }
+
+        averageX = Math.round((float) averageX / (float) list.size());
+        averageY = Math.round((float) averageY / (float) list.size());
+
+        return new Location(averageX, averageY);
+    }
+    
 	public boolean isLocationEmpty(ArenaWorld world, ArenaAnimal animal, Location location) { // returns
 																								// true
 																								// if

@@ -15,6 +15,7 @@ import ca.ubc.ece.cpen221.mp4.commands.Command;
 import ca.ubc.ece.cpen221.mp4.commands.EatCommand;
 import ca.ubc.ece.cpen221.mp4.commands.MoveCommand;
 import ca.ubc.ece.cpen221.mp4.commands.WaitCommand;
+import ca.ubc.ece.cpen221.mp4.items.Grass;
 import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
 
@@ -23,88 +24,135 @@ import ca.ubc.ece.cpen221.mp4.items.animals.*;
  */
 public class FoxAI extends AbstractAI {
 
-    private int  closest             = 2;                // max number;
-                                                         // greater than fox's
-                                                         // view range
-
-    private int  closestFoodDistance = Integer.MAX_VALUE;
-
-    private Item closestFood         = null;
+    boolean changeDefault = false;
+    int     dx            = 0;
+    int     dy            = 0;
 
     public FoxAI() {
 
     }
 
-    // TODO: make this smarter
-    
     @Override
     public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
         Set<Item> nearbyItems = world.searchSurroundings(animal);
-        closestFoodDistance = Integer.MAX_VALUE;
+        List<Item> rabbits = new ArrayList<Item>();
+        List<Item> grass = new ArrayList<Item>();
 
-        Command action = new WaitCommand();
-        List<Location> desiredLocations = new ArrayList<Location>();
-        List<Location> otherLocations = new ArrayList<Location>();
-        Location animalLocation = animal.getLocation();
+        Boolean hungry = ((float) animal
+                .getEnergy() < (float) animal.getMaxEnergy() / 1.3);
+        Boolean breedable = (animal.getEnergy() > animal
+                .getMinimumBreedingEnergy());
+
+        Command nextCommand = new WaitCommand();
+
+        Location desiredLocation = animal.getLocation();
+        StringBuilder directionOrdering = new StringBuilder();
 
         for (Item item : nearbyItems) {
-            int distanceToItem = item.getLocation()
-                    .getDistance(animal.getLocation());
-            int deltaXToItem = animalLocation.getX()
-                    - item.getLocation().getX();
-            int deltaYToItem = animalLocation.getY()
-                    - item.getLocation().getY();
-            int stepXTowardItem = deltaXToItem > 0 ? animal.getMovingRange()
-                    : -animal.getMovingRange();
-            int stepYTowardItem = deltaYToItem > 0 ? animal.getMovingRange()
-                    : -animal.getMovingRange();
-
-            if (item.getStrength() >= animal.getStrength()) {
-                desiredLocations.add(
-                        new Location(animalLocation.getX() - stepXTowardItem,
-                                animalLocation.getY()));
-                desiredLocations.add(new Location(animalLocation.getX(),
-                        animalLocation.getY() - stepYTowardItem));
-            } else if (item.getMeatCalories() > 0) {
-
-                if (distanceToItem == 1
-                        && animal.getEnergy() < animal.getMaxEnergy()) {
-                    return new EatCommand(animal, item);
-                }
-
-                desiredLocations.add(
-                        new Location(animalLocation.getX() + stepXTowardItem,
-                                animalLocation.getY()));
-                desiredLocations.add(new Location(animalLocation.getX(),
-                        animalLocation.getY() + stepYTowardItem));
+            if (item.getName() == "grass") {
+                grass.add(item);
+            }
+            if (item.getName() == "Rabbit") {
+                rabbits.add(item);
             }
         }
 
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                Location potentialLocation = new Location(
-                        animalLocation.getX() + x, animalLocation.getY() + y);
-                if (isLocationEmpty(world, animal, potentialLocation)) {
-                    otherLocations.add(potentialLocation);
+        boolean locationAvailable = false;
+        boolean grassAvailable = false;
+        boolean rabbitAvailable = false;
+        boolean rabbitAdjacent = false;
+        
+        if (changeDefault) {
+            dx = (int) Math.round(Math.random());
+            dy = (int) Math.round(Math.random());
+            changeDefault = false;
+        }
+
+        if (!grass.isEmpty()) {
+            Grass closestGrass = (Grass) closestItem(animal, grass);
+            Location averageGrass = averageLocation(grass);
+
+            if (hungry || !breedable) {
+                dx = closestGrass.getLocation().getX()
+                        - animal.getLocation().getX();
+                dy = closestGrass.getLocation().getY()
+                        - animal.getLocation().getY();
+            } else {
+                dx = averageGrass.getX() - animal.getLocation().getX();
+                dy = averageGrass.getY() - animal.getLocation().getY();
+            }
+        }
+        if (!rabbits.isEmpty()) {
+            Rabbit closestRabbit = (Rabbit) closestItem(animal, rabbits);
+            Location averageRabbit = averageLocation(rabbits);
+            
+            if (animal.getLocation()
+                    .getDistance(closestRabbit.getLocation()) == 1) {
+                nextCommand = new EatCommand(animal, closestRabbit);
+                changeDefault = true;
+                rabbitAdjacent = true;
+            }
+
+            dx = averageRabbit.getX() - animal.getLocation().getX();
+            dy = averageRabbit.getY() - animal.getLocation().getY();
+
+            if (animal.getLocation()
+                    .getDistance(closestRabbit.getLocation()) <= 2) {
+                rabbitAvailable = true;
+            }
+        }
+
+        if (Math.abs(dx) > Math.abs(dy)) {
+            if (dx > 0) {
+                directionOrdering = directionOrdering.append("EW");
+            } else {
+                directionOrdering = directionOrdering.append("WE");
+            }
+            if (dy > 0) {
+                directionOrdering = directionOrdering.append("SN");
+            } else {
+                directionOrdering = directionOrdering.append("NS");
+            }
+        } else {
+            if (dy > 0) {
+                directionOrdering = directionOrdering.append("SN");
+            } else {
+                directionOrdering = directionOrdering.append("NS");
+            }
+            if (dx > 0) {
+                directionOrdering = directionOrdering.append("EW");
+            } else {
+                directionOrdering = directionOrdering.append("WE");
+            }
+        }
+
+        for (Direction direction : orderingToList(
+                directionOrdering.toString())) {
+            Location potential = new Location(animal.getLocation(), direction);
+            if (isLocationEmpty(world, animal, potential)) {
+                locationAvailable = true;
+                desiredLocation = potential;
+                break;
+            }
+        }
+        if (!rabbitAdjacent) {
+
+            if (rabbitAvailable || hungry) {
+                if (locationAvailable) {
+                    nextCommand = new MoveCommand(animal, desiredLocation);
+                } else {
+                    nextCommand = new WaitCommand();
+                }
+            } else if (breedable) {
+                if (locationAvailable) {
+                    nextCommand = new BreedCommand(animal, desiredLocation);
+                } else {
+                    nextCommand = new WaitCommand();
                 }
             }
         }
 
-        for (Location potentialLocation : desiredLocations) {
-            if (isLocationEmpty(world, animal, potentialLocation)) {
-                if (animal.getEnergy() > 5
-                        * animal.getMinimumBreedingEnergy()) {
-                    return new BreedCommand(animal, potentialLocation);
-                }
-                return new MoveCommand(animal, potentialLocation);
-            }
-
-        }
-        if (!otherLocations.isEmpty()) {
-            return new MoveCommand(animal, otherLocations.get((int) Math
-                    .round(Math.random() * (otherLocations.size() - 1))));
-        }
-        return action;
+        return nextCommand;
     }
 
 }
