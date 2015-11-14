@@ -15,7 +15,9 @@ import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 import ca.ubc.ece.cpen221.mp4.items.animals.Fox;
 import ca.ubc.ece.cpen221.mp4.items.animals.Rabbit;
 
-
+/**
+ * @author khyjoon
+ */
 public class Truck implements ArenaVehicle {
     private static final int INITIAL_ENERGY = 500;
     private static final int INITIAL_INTEGRITY = 700;

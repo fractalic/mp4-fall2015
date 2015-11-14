@@ -15,6 +15,9 @@ import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 import ca.ubc.ece.cpen221.mp4.items.animals.Fox;
 import ca.ubc.ece.cpen221.mp4.items.animals.Rabbit;
 
+/**
+ * @author khyjoon
+ */
 public class Sedan implements ArenaVehicle {
 	private static final int INITIAL_ENERGY = 200;
 	private static final int INITIAL_INTEGRITY = 300;
@@ -185,7 +188,7 @@ public class Sedan implements ArenaVehicle {
 
 	@Override
 	public String getName() {
-		return "Lamborghini";
+		return "Sedan";
 	}
 
 	@Override

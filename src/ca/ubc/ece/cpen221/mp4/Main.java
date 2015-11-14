@@ -64,14 +64,16 @@ public class Main {
 
         addGnats(world);
         addRabbits(world);
-
         addFoxes(world);
-        /*
-         * addGrievers(world); addTrucks(world);
-         * 
-         * addLamborghinis(world); addSedans(world); addBears(world);
-         * addWolves(world); addVolcanos(world);
-         */
+
+        addGrievers(world);
+        addTrucks(world);
+        addLamborghinis(world);
+        addSedans(world);
+        addBears(world);
+        addWolves(world);
+        addVolcanos(world);
+
     }
 
     private void addGrass(World world) {

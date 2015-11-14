@@ -15,7 +15,9 @@ import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 import ca.ubc.ece.cpen221.mp4.items.animals.Fox;
 import ca.ubc.ece.cpen221.mp4.items.animals.Rabbit;
 
-
+/**
+ * @author khyjoon
+ */
 public abstract class AbstractArenaVehicle implements ArenaVehicle {
     private int INITIAL_ENERGY;
     private int INITIAL_INTEGRITY;

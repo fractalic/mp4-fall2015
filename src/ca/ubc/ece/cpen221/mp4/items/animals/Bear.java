@@ -10,6 +10,9 @@ import ca.ubc.ece.cpen221.mp4.ai.AI;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
 import ca.ubc.ece.cpen221.mp4.items.LivingItem;
 
+/**
+ * @author khyjoon
+ */
 public class Bear implements ArenaAnimal {
 
 	private static final int INITIAL_ENERGY = 300;
